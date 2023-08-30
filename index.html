@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="tabs-sec">
+        <ul>
+          <li><a href="#" data-tab="1" class="active">Home</a></li>
+          <li><a href="#" data-tab="2">About</a></li>
+          <li><a href="#" data-tab="3">Services</a></li>
+          <li><a href="#" data-tab="4">Gallery</a></li>
+          <li><a href="#" data-tab="5">Contact</a></li>
+        </ul>
+      </div>
+      <div class="view-sec">
+        <div class="view active" data-view="1">
+          <h2>Home</h2>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Voluptatibus veniam id reiciendis quisquam modi harum, omnis
+            praesentium et odit magnam!
+          </p>
+          <button data-next>Next</button>
+        </div>
+        <div class="view" data-view="2">
+          <h2>About</h2>
+          <p>
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odit eum
+            fugit facere reprehenderit eius corrupti officia error molestiae
+            iure aliquam.
+          </p>
+          <button data-prev>Prev</button>
+          <button data-next>Next</button>
+        </div>
+        <div class="view" data-view="3">
+          <h2>Services</h2>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo,
+            provident distinctio. Cumque aut blanditiis reprehenderit
+            perferendis odio praesentium qui facere.]
+          </p>
+          <button data-prev>Prev</button>
+          <button data-next>Next</button>
+        </div>
+        <div class="view" data-view="4">
+          <h2>Gallery</h2>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum
+            impedit mollitia culpa ea eum vitae aliquam temporibus pariatur.
+            Magni, modi!
+          </p>
+          <button data-prev>Prev</button>
+          <button data-next>Next</button>
+        </div>
+        <div class="view" data-view="5">
+          <h2>Contact</h2>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. At ipsa
+            maxime, distinctio sapiente consectetur rem harum minus voluptates
+            sequi dolor.
+          </p>
+          <button data-prev>Previous</button>
+          <button data-submit>Submit</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+<script>
+  
+    const DataTabs = document.querySelectorAll('[data-tab]');
+    const DataViews = document.querySelectorAll('[data-view]');
+    const nextBtn = document.querySelectorAll("[data-next]");
+    const prevBtn = document.querySelectorAll("[data-prev]");
+    // const dataSubmit = document.querySelector("[data-submit]");
+
+
+
+    nextBtn.forEach(next => {
+      next.addEventListener('click', () => {
+        const nextParent = next.parentElement;
+        const nextView = nextParent.nextElementSibling;
+        const nextViewAttribute = nextView.getAttribute("data-view");
+
+        viewDeactivate();
+        tabDeactivate();
+        checkTabs(nextViewAttribute);
+
+        nextView.classList.add('active');
+
+      });
+    })
+
+
+    function checkTabs(ViewAttribute){
+      DataTabs.forEach(tab => {
+          const tabAttr = tab.getAttribute("data-tab");
+
+          if(tabAttr === ViewAttribute){
+            tab.classList.add("active");
+          }
+        });    
+    }
+
+    prevBtn.forEach(prev => {
+      prev.addEventListener("click", () => {
+        const prevParent = prev.parentElement;
+        const prevView = prevParent.previousElementSibling;
+        const prevViewAttribute = prevView.getAttribute("data-view");
+
+        viewDeactivate();
+        tabDeactivate();
+        checkTabs(prevViewAttribute)
+        
+        prevView.classList.add("active");
+
+      })
+    })
+
+    // dataSubmit.addEventListener("click", () => {
+      
+    // })
+
+    DataTabs.forEach(tab => {
+
+        tab.addEventListener('click', () => {
+
+            viewDeactivate();
+            tabDeactivate();
+
+            tab.classList.add('active');
+            const tabAttr = tab.getAttribute('data-tab');
+
+            DataViews.forEach(view => {
+                const viewAttr = view.getAttribute('data-view');
+                if(tabAttr === viewAttr){
+                    view.classList.add('active');
+                }
+            });
+        })
+
+    });
+
+    function viewDeactivate(){
+        DataViews.forEach(view => {
+            view.classList.remove('active');
+        })
+    }
+
+
+    function tabDeactivate(){
+        DataTabs.forEach(tab => {
+            tab.classList.remove('active');
+        })
+    };
+    
+    
+
+
+</script>
